@@ -1,0 +1,19 @@
+{
+  "name": "consumo-api-rest-movie-practico",
+  "version": "1.0.0",
+  "description": "Curso practico de comsumo de API REST con JavaScript",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vickfaby/consumo-api-rest-movie-practico.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vickfaby/consumo-api-rest-movie-practico/issues"
+  },
+  "homepage": "https://github.com/vickfaby/consumo-api-rest-movie-practico#readme"
+}
