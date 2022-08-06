@@ -1,14 +1,21 @@
-async function getTrendingMoviesPreview(){
-    const res = await fetch(
-        'http://api.themoviedb.org/3/trending/movie/day?api_key='
-        + API_KEY);
-    const data = await res.json();
+const api = axios.create({
+    baseURL: 'http://api.themoviedb.org/3',
+    headers: {
+        'Content-Type': 'application/json;charset=utf-8'
+    },
+    params: {
+        'api_key': API_KEY,
+    },
+});
 
+async function getTrendingMoviesPreview(){
+    const {data} = await api('trending/movie/day');
     const movies = data.results;
-    console.log({data, movies});
+
+    trendingMoviesPreviewList.innerHTML="";
 
     movies.forEach(movie => {
-        const trendingPreviewMoviesContainer = document.querySelector
+        const trendingMoviesPreviewList = document.querySelector
         ('#trendingPreview .trendingPreview-movieList');
         const movieContainer = document.createElement('div');
         movieContainer.classList.add('movie-container');
@@ -22,8 +29,31 @@ async function getTrendingMoviesPreview(){
         );
         
         movieContainer.appendChild(movieImg);
-        trendingPreviewMoviesContainer.appendChild(movieContainer);
+        trendingMoviesPreviewList.appendChild(movieContainer);
     });
 }
 
-getTrendingMoviesPreview();
+async function getCategoriesPreview(){
+    const {data} = await api('genre/movie/list'); //axios
+    const categories = data.genres;
+
+    categoriesPreviewList.innerHTML="";
+
+    categories.forEach(category => {
+        const categoriesPreviewList = document.querySelector
+        ('#categoriesPreview .categoriesPreview-list');
+
+        const categoryContainer = document.createElement('div');
+        categoryContainer.classList.add('category-container');
+
+        const categoryTitle = document.createElement('h3');
+        categoryTitle.classList.add('category-title');
+        categoryTitle.setAttribute('id', 'id'+ category.id);
+        const categoryTitleText = document.createTextNode(category.name)
+        
+        categoryTitle.appendChild(categoryTitleText)
+        categoryContainer.appendChild(categoryTitle);
+        categoriesPreviewList.appendChild(categoryContainer);
+    });
+}
+
