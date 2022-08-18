@@ -12,9 +12,9 @@ const api = axios.create({
 
 const lazyLoader = new IntersectionObserver((entries) => {
     entries.forEach((entry)=>{
-        console.log({entry});
+        //console.log({entry});
         if(entry.isIntersecting){
-            console.log('IS intersecting');
+            //console.log('IS intersecting');
             const url = entry.target.getAttribute('data-img');
             entry.target.setAttribute('src',url);
         }
@@ -75,7 +75,6 @@ function createCategories(categories,container){
     });
 }
 
-
 //Llamados a la API
 async function getTrendingMoviesPreview(){
     const {data} = await api('trending/movie/day');
@@ -98,7 +97,33 @@ async function getMoviesByCategory(id){
         },
     });
     const movies = data.results;
-    readAndPutMovies(movies, genericSection ,true);
+    maxPage = data.total_pages;
+    readAndPutMovies(movies, genericSection ,{lazyLoad: true});
+}
+
+function getPaginatedMoviesByCategory(id){ // se activa al llegar al final del scroll   
+    return async function(){ //podemos acceder al query por closures.
+        const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
+        const scrollIsBottom=(scrollTop + clientHeight) >= (scrollHeight -15);  
+        const pageIsNotMax = page < maxPage;
+    
+        if(scrollIsBottom && pageIsNotMax) {
+
+            page++;
+            const {data} = await api('discover/movie',{
+                params:{
+                    with_genres: id,
+                    page,
+                },
+            });
+            const movies = data.results;
+
+            readAndPutMovies(movies, genericSection,{    
+                lazyLoad: true,
+                clean: false,   
+            }); 
+        }
+    }
 }
 
 async function getMoviesBySearch(query){
@@ -108,13 +133,41 @@ async function getMoviesBySearch(query){
         },
     });
     const movies = data.results;
-
+    maxPage = data.total_pages;
+    console.log(maxPage);
     readAndPutMovies(movies,genericSection);
+
+}
+
+function getPaginatedMoviesBySearch(query){ // se activa al llegar al final del scroll   
+    return async function(){ //podemos acceder al query por closures.
+        const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
+        const scrollIsBottom=(scrollTop + clientHeight) >= (scrollHeight -15);  
+        const pageIsNotMax = page < maxPage;
+    
+        if(scrollIsBottom && pageIsNotMax) {
+            page++;
+            const {data} = await api('search/movie',{
+                params:{
+                    query,
+                    page,
+                },
+            });
+            const movies = data.results;
+            readAndPutMovies(movies, genericSection,{    
+                lazyLoad: true,
+                clean: false,   
+            }); 
+        }
+    }
 }
 
 async function getTrendingMovies(){
     const {data} = await api('trending/movie/day');
     const movies = data.results;
+    maxPage = data.total_pages;
+    console.log(data.total_pages);
+    
 
     readAndPutMovies(movies, genericSection,{
         lazyLoad: true,
@@ -127,11 +180,11 @@ async function getTrendingMovies(){
     // genericSection.appendChild(btnLoadMore);
 }
 
-async function getPaginatedTrendingMovies(){    
+async function getPaginatedTrendingMovies(){ // se activa al llegar al final del scroll   
     const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
     const scrollIsBottom=(scrollTop + clientHeight) >= (scrollHeight -15);  
-
-    if(scrollIsBottom){
+    const pageIsNotMax = page < maxPage;
+    if(scrollIsBottom && pageIsNotMax){
         page++;   
         const {data} = await api('trending/movie/day',{
             params: {

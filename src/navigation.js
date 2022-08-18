@@ -1,3 +1,4 @@
+let maxPage;1
 let page = 1;
 let infiniteScroll;
 
@@ -84,6 +85,8 @@ function categoriesPage(){
 
     headerCategoryTitle.innerHTML= categoryName;
     getMoviesByCategory(categoryId);
+
+    infiniteScroll = getPaginatedMoviesByCategory(categoryId);
 }
 function movieDetailPage(){
     console.log('Movie!!!');
@@ -122,6 +125,8 @@ function searchPage(){
 
     const [_,query] = location.hash.split('=');// ['#search,'ironman']
     getMoviesBySearch(query);
+
+    infiniteScroll = getPaginatedMoviesBySearch(query);
 }
 function trendsPage(){
     console.log('HTrends!!!');
