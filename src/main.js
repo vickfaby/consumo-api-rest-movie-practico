@@ -29,9 +29,6 @@ function readAndPutMovies(pelis, div, {lazyLoad = false, clean = true}={}){ // c
     pelis.forEach(peli => {
         const movieContainer = document.createElement('div');
         movieContainer.classList.add('movie-container');
-        movieContainer.addEventListener('click',()=>{
-            location.hash= `#movie=${peli.id}`
-        });
 
         const movieImg = document.createElement('img');
         movieImg.classList.add('movie-img');
@@ -40,16 +37,27 @@ function readAndPutMovies(pelis, div, {lazyLoad = false, clean = true}={}){ // c
             lazyLoad ? 'data-img' : 'src', 
             'https://image.tmdb.org/t/p/w300' + peli.poster_path
             );
-            
+        movieImg.addEventListener('click',()=>{
+            location.hash= `#movie=${peli.id}`
+        });
+    
         movieImg.addEventListener('error', () =>{
             movieImg.setAttribute('src', 'https://static.platzi.com/static/images/error/img404.png');
         });
         
+        const movieBtn = document.createElement('button');
+        movieBtn.classList.add('movie-btn');
+        movieBtn.addEventListener('click',()=>{
+            movieBtn.classList.toggle('movie-btn--liked'); // INTERCAMBIA LA CLASE EN CADA CLICK
+            //DEBERIAMOS AGREGAR LA PELICULA A LOCAL STORAGE
+        });
+
         if(lazyLoad){
             lazyLoader.observe(movieImg); //observamos el contenedor de la imagen del DOM
         }
 
         movieContainer.appendChild(movieImg);
+        movieContainer.appendChild(movieBtn);
         div.appendChild(movieContainer);
     });
 }
@@ -123,7 +131,7 @@ function getPaginatedMoviesByCategory(id){ // se activa al llegar al final del s
                 clean: false,   
             }); 
         }
-    }
+    } 
 }
 
 async function getMoviesBySearch(query){
