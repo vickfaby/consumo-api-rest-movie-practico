@@ -1,3 +1,5 @@
+//Data
+
 const api = axios.create({
     baseURL: 'http://api.themoviedb.org/3',
     headers: {
@@ -7,6 +9,39 @@ const api = axios.create({
         'api_key': API_KEY,
     },
 });
+
+function likedMoviesList(){
+    const item =  localStorage.getItem('liked_movies'); //llega en string
+
+    let movies;
+
+    if (item){
+        movies = item;
+    } else {
+        movies = {}
+    }
+
+    movies = JSON.parse(movies);
+    // console.log('objeto peliculas favoritas');
+    // console.log(movies);
+    return movies; // se envia como objeto
+}
+
+function likeMovie(movie){
+
+    const likedMovies = likedMoviesList(); //llega en objeto, no en string
+
+    if(likedMovies[movie.id]){
+        console.log('se borra la peli de favoritos');
+        likedMovies[movie.id] = undefined;// elimina de la lista de favoritos
+    }else{
+        console.log('se guarda la peli en favoritos')
+        likedMovies[movie.id] = movie;
+    }
+
+    localStorage.setItem('liked_movies',JSON.stringify(likedMovies));// se convierte en string y se envia
+}
+
 
 //Utils
 
@@ -22,7 +57,7 @@ const lazyLoader = new IntersectionObserver((entries) => {
 });
 
 function readAndPutMovies(pelis, div, {lazyLoad = false, clean = true}={}){ // create movies
-    
+
     if(clean){
         div.innerHTML="";
     }
@@ -34,23 +69,32 @@ function readAndPutMovies(pelis, div, {lazyLoad = false, clean = true}={}){ // c
         movieImg.classList.add('movie-img');
         movieImg.setAttribute('alt', peli.title);
         movieImg.setAttribute(
-            lazyLoad ? 'data-img' : 'src', 
+            lazyLoad ? 'data-img' : 'src',
             'https://image.tmdb.org/t/p/w300' + peli.poster_path
             );
         movieImg.addEventListener('click',()=>{
             location.hash= `#movie=${peli.id}`
         });
-    
+
         movieImg.addEventListener('error', () =>{
             movieImg.setAttribute('src', 'https://static.platzi.com/static/images/error/img404.png');
         });
-        
+
         const movieBtn = document.createElement('button');
         movieBtn.classList.add('movie-btn');
         movieBtn.addEventListener('click',()=>{
             movieBtn.classList.toggle('movie-btn--liked'); // INTERCAMBIA LA CLASE EN CADA CLICK
+            likeMovie(peli);
             //DEBERIAMOS AGREGAR LA PELICULA A LOCAL STORAGE
         });
+
+        likedMoviesList()[peli.id] &&  movieBtn.classList.add('movie-btn--liked');
+        // const listaDeFavoritos= likedMoviesList()
+        // if(peli.id in listaDeFavoritos){
+        //     // console.log('esta peli ya esta en favoritos');
+        //     // console.log(peli.id);
+        //     movieBtn.classList.add('movie-btn--liked');
+        // }
 
         if(lazyLoad){
             lazyLoader.observe(movieImg); //observamos el contenedor de la imagen del DOM
@@ -76,7 +120,7 @@ function createCategories(categories,container){
             location.hash=`#category=${category.id}-${category.name}`;
         });
         const categoryTitleText = document.createTextNode(category.name)
-        
+
         categoryTitle.appendChild(categoryTitleText)
         categoryContainer.appendChild(categoryTitle);
         container.appendChild(categoryContainer);
@@ -109,12 +153,12 @@ async function getMoviesByCategory(id){
     readAndPutMovies(movies, genericSection ,{lazyLoad: true});
 }
 
-function getPaginatedMoviesByCategory(id){ // se activa al llegar al final del scroll   
+function getPaginatedMoviesByCategory(id){ // se activa al llegar al final del scroll
     return async function(){ //podemos acceder al query por closures.
         const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
-        const scrollIsBottom=(scrollTop + clientHeight) >= (scrollHeight -15);  
+        const scrollIsBottom=(scrollTop + clientHeight) >= (scrollHeight -15);
         const pageIsNotMax = page < maxPage;
-    
+
         if(scrollIsBottom && pageIsNotMax) {
 
             page++;
@@ -126,12 +170,12 @@ function getPaginatedMoviesByCategory(id){ // se activa al llegar al final del s
             });
             const movies = data.results;
 
-            readAndPutMovies(movies, genericSection,{    
+            readAndPutMovies(movies, genericSection,{
                 lazyLoad: true,
-                clean: false,   
-            }); 
+                clean: false,
+            });
         }
-    } 
+    }
 }
 
 async function getMoviesBySearch(query){
@@ -147,12 +191,12 @@ async function getMoviesBySearch(query){
 
 }
 
-function getPaginatedMoviesBySearch(query){ // se activa al llegar al final del scroll   
+function getPaginatedMoviesBySearch(query){ // se activa al llegar al final del scroll
     return async function(){ //podemos acceder al query por closures.
         const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
-        const scrollIsBottom=(scrollTop + clientHeight) >= (scrollHeight -15);  
+        const scrollIsBottom=(scrollTop + clientHeight) >= (scrollHeight -15);
         const pageIsNotMax = page < maxPage;
-    
+
         if(scrollIsBottom && pageIsNotMax) {
             page++;
             const {data} = await api('search/movie',{
@@ -162,10 +206,10 @@ function getPaginatedMoviesBySearch(query){ // se activa al llegar al final del 
                 },
             });
             const movies = data.results;
-            readAndPutMovies(movies, genericSection,{    
+            readAndPutMovies(movies, genericSection,{
                 lazyLoad: true,
-                clean: false,   
-            }); 
+                clean: false,
+            });
         }
     }
 }
@@ -175,7 +219,7 @@ async function getTrendingMovies(){
     const movies = data.results;
     maxPage = data.total_pages;
     console.log(data.total_pages);
-    
+
 
     readAndPutMovies(movies, genericSection,{
         lazyLoad: true,
@@ -188,12 +232,12 @@ async function getTrendingMovies(){
     // genericSection.appendChild(btnLoadMore);
 }
 
-async function getPaginatedTrendingMovies(){ // se activa al llegar al final del scroll   
+async function getPaginatedTrendingMovies(){ // se activa al llegar al final del scroll
     const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
-    const scrollIsBottom=(scrollTop + clientHeight) >= (scrollHeight -15);  
+    const scrollIsBottom=(scrollTop + clientHeight) >= (scrollHeight -15);
     const pageIsNotMax = page < maxPage;
     if(scrollIsBottom && pageIsNotMax){
-        page++;   
+        page++;
         const {data} = await api('trending/movie/day',{
             params: {
                 page,
@@ -205,7 +249,7 @@ async function getPaginatedTrendingMovies(){ // se activa al llegar al final del
             lazyLoad: true,
             clean: false,
         });
-    }   
+    }
 }
 
 async function getMoviesById(movieId){
@@ -228,4 +272,21 @@ async function getRelatedMoviesById(id){
     const {data} = await api(`movie/${id}/recommendations`);
     const relatedMovies = data.results;
     readAndPutMovies(relatedMovies,relatedMoviesContainer);
+}
+
+function getLikedMovies(){
+    const likedMovies = likedMoviesList();
+    //{keys:'values', keys: 'values'}
+    //['value1', 'value2']
+
+    const moviesArray = Object.values(likedMovies);
+    console.log('Array de peliculas favoritas');
+    console.log(moviesArray);
+
+    readAndPutMovies(moviesArray, likedMoviesListArticle,
+        {lazyLoad: false, clean: true});
+}
+
+function markFavoritesPelis(movie){
+
 }
