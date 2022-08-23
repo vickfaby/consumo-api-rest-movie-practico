@@ -17,11 +17,12 @@ function likedMoviesList(){
 
     if (item){
         movies = item;
+        movies = JSON.parse(movies);
     } else {
         movies = {}
     }
 
-    movies = JSON.parse(movies);
+
     // console.log('objeto peliculas favoritas');
     // console.log(movies);
     return movies; // se envia como objeto
