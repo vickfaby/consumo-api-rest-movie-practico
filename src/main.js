@@ -28,9 +28,7 @@ function likedMoviesList(){
 }
 
 function likeMovie(movie){
-
     const likedMovies = likedMoviesList(); //llega en objeto, no en string
-
     if(likedMovies[movie.id]){
         console.log('se borra la peli de favoritos');
         likedMovies[movie.id] = undefined;// elimina de la lista de favoritos
@@ -40,6 +38,9 @@ function likeMovie(movie){
     }
 
     localStorage.setItem('liked_movies',JSON.stringify(likedMovies));// se convierte en string y se envia
+    getLikedMovies();
+    getTrendingMoviesPreview();
+
 }
 
 
@@ -285,8 +286,4 @@ function getLikedMovies(){
 
     readAndPutMovies(moviesArray, likedMoviesListArticle,
         {lazyLoad: false, clean: true});
-}
-
-function markFavoritesPelis(movie){
-
 }
