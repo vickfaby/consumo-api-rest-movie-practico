@@ -1,62 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VickMovies</title>
-    <link rel="stylesheet" href="./styles/app.css">
-</head>
-<body>
-    
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="upgrade-insecure-requests"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>¡Tus pelis!</title>
+    <link rel="stylesheet" href="./styles/app.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  </head>
+  <body>
     <header id="header" class="header-container">
-        <span class="header-arrow inactive">&lt;</span>
-        <h1 class="header-title">VickFabyMovies</h1>
-        <h1 class="header-title header-title--categoryView inactive">Acción</h1>
+      <span class=" fa-solid fa-arrow-left header-arrow inactive"></span>
+      <h1 class="header-title">¡Tus pelis!</h1>
+      <h1 class="header-title header-title--categoryView inactive"></h1>
 
-        <form id="searchForm" class="header-searchForm">
-            <input type="text" placeholder="Vengadores" />
-            <button id="searchBtn">🔍</button>
-        </form>
+      <form id="searchForm" class="header-searchForm">
+        <input type="text" placeholder="Vengadores" />
+        <button id="searchBtn">🔍</button>
+      </form>
     </header>
 
     <section id="trendingPreview" class="trendingPreview-container">
-        <div class="trendingPreview-header">
-            <h2 class="trendingPreview-title">Tendencias</h2>
-            <button class="trendingPreview-btn">Ver más</button>
-        </div>
-        <article class="trendingPreview-movieList">
-            <div class="movie-container movie-container--loading"></div>
-            <div class="movie-container movie-container--loading"></div>
-            <div class="movie-container movie-container--loading"></div>
-            <!-- <div class="movie-container">
+      <div class="trendingPreview-header">
+        <h2 class="trendingPreview-title">Tendencias</h2>
+        <button class="trendingPreview-btn">Ver más</button>
+      </div>
+      <article class="trendingPreview-movieList">
+        <div class="movie-container movie-container--loading"></div>
+        <div class="movie-container movie-container--loading"></div>
+        <div class="movie-container movie-container--loading"></div>
+        <!-- <div class="movie-container">
                 <img
                 src="https://image.tmdb.org/t/p/w300/adOzdWS35KAo21r9R4BuFCkLer6.jpg"
                 class="movie-img"
                 alt="Nombre de la película"
                 />
             </div> -->
-        </article>
+      </article>
     </section>
 
     <section id="categoriesPreview" class="categoriesPreview-container">
-        <h2 class="categoriesPreview-title">Categorías</h2>
-        <article class="categoriesPreview-list">
-            <div class="category-container category-container--loading"></div>
-            <div class="category-container category-container--loading"></div>
-            <div class="category-container category-container--loading"></div>
-            <!-- <div class="category-container">
+      <h2 class="categoriesPreview-title">Categorías</h2>
+      <article class="categoriesPreview-list">
+        <div class="category-container category-container--loading"></div>
+        <div class="category-container category-container--loading"></div>
+        <div class="category-container category-container--loading"></div>
+        <!-- <div class="category-container">
                 <h3 id="id28" class="category-title">Romance</h3>
             </div> -->
-        </article>
+      </article>
     </section>
 
     <section id="liked" class="liked-container">
-        <div class="liked-header">
-            <h2 class="liked-title">Películas favoritas!</h2>
-        </div>
-        <article class="liked-movieList">
-            <!-- <div class="movie-container">
+      <div class="liked-header">
+        <h2 class="liked-title">Tus pelis favoritas!</h2>
+      </div>
+      <article class="liked-movieList">
+        <!-- <div class="movie-container">
                 <img                
                     src="https://image.tmdb.org/t/p/w300/adOzdWS35KAo21r9R4BuFCkLer6.jpg"
                     class="movie-img"
@@ -77,45 +80,48 @@
                     alt="Nombre de la película"
                 />
             </div> -->
-        </article>
+      </article>
     </section>
 
     <section id="genericList" class="genericList-container inactive">
-        <div class="movie-container movie-container--loading"></div>
-        <div class="movie-container movie-container--loading"></div>
-        <div class="movie-container movie-container--loading"></div>
+      <div class="movie-container movie-container--loading"></div>
+      <div class="movie-container movie-container--loading"></div>
+      <div class="movie-container movie-container--loading"></div>
     </section>
 
     <section id="movieDetail" class="movieDetail-container inactive">
-        <h1 class="movieDetail-title">Deadpool</h1>
-        <span class="movieDetail-score">7.6</span>
-        <p class="movieDetail-description">
-            Wisecracking mercenary Deadpool battles the evil and powerful Cable and other bad guys to save a boy's life.
-        </p>
-        <article class="categories-list">
-            <div class="category-container category-container--loading"></div>
-            <div class="category-container category-container--loading"></div>
-            <div class="category-container category-container--loading"></div>
-        </article>
-        <article class="relatedMovies-container">
-            <h2 class="relatedMovies-title">Películas similares</h2>
-            <div class="relatedMovies-scrollContainer">
-                <div class="movie-container movie-container--loading">
-                </div>
-                <div class="movie-container movie-container--loading">
-                </div>
-                <div class="movie-container movie-container--loading">
-                </div>
-            </div>
-        </article>
+      <h1 class="movieDetail-title">Deadpool</h1>
+      <span class="movieDetail-score">7.6</span>
+      <p class="movieDetail-description">
+        Wisecracking mercenary Deadpool battles the evil and powerful Cable and
+        other bad guys to save a boy's life.
+      </p>
+      <article class="categories-list">
+        <div class="category-container category-container--loading"></div>
+        <div class="category-container category-container--loading"></div>
+        <div class="category-container category-container--loading"></div>
+      </article>
+      <article class="relatedMovies-container">
+        <h2 class="relatedMovies-title">Películas similares</h2>
+        <div class="relatedMovies-scrollContainer">
+          <div class="movie-container movie-container--loading"></div>
+          <div class="movie-container movie-container--loading"></div>
+          <div class="movie-container movie-container--loading"></div>
+        </div>
+      </article>
     </section>
-    
-    <footer>Hecho con amor con Platzi por @vickfaby</footer>
-    <h1>VickMovies</h1>
+
+    <footer>
+        <h3>Created by Vick</h3>
+    </footer>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="./src/private.js"></script>
     <script src="./src/nodes.js"></script>
     <script src="./src/main.js"></script>
     <script src="./src/navigation.js"></script>
-</body>
+    <script
+      src="https://kit.fontawesome.com/40ce13255f.js"
+      crossorigin="anonymous"
+    ></script>
+  </body>
 </html>

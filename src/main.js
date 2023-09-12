@@ -82,15 +82,17 @@ function readAndPutMovies(pelis, div, {lazyLoad = false, clean = true}={}){ // c
             movieImg.setAttribute('src', 'https://static.platzi.com/static/images/error/img404.png');
         });
 
-        const movieBtn = document.createElement('button');
+        const movieBtn = document.createElement('span');
         movieBtn.classList.add('movie-btn');
+        movieBtn.classList.add('fa-regular');
+        movieBtn.classList.add('fa-heart');
         movieBtn.addEventListener('click',()=>{
             movieBtn.classList.toggle('movie-btn--liked'); // INTERCAMBIA LA CLASE EN CADA CLICK
             likeMovie(peli);
             //DEBERIAMOS AGREGAR LA PELICULA A LOCAL STORAGE
         });
 
-        likedMoviesList()[peli.id] &&  movieBtn.classList.add('movie-btn--liked');
+        likedMoviesList()[peli.id] &&  movieBtn.classList.add('movie-btn--liked', 'fa-solid');
         // const listaDeFavoritos= likedMoviesList()
         // if(peli.id in listaDeFavoritos){
         //     // console.log('esta peli ya esta en favoritos');

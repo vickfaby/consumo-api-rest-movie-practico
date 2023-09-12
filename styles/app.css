@@ -7,7 +7,7 @@
     --purple-medium-1: #AA83C8;
     --purple-medium-2: #8B48BF;
     --purple-medium-3: #5C218A;
-    --purple-dark-1: #3E0F64;
+    --purple-dark-1: #26f8689f;
     --purple-dark-2: #2A0646;
 
     --yellow: #EECC75;
@@ -17,8 +17,13 @@
     --darkBlue: #8EA2EA;
     --red: #F09D9D; 
 
-    --font-family-titles: 'Dosis', sans-serif;
-    --font-family-text: 'Red Hat Display', sans-serif;
+    --color-dark1: #001F3F;
+    --color-dark2: #083358;
+    --color-ligth: #0D63A5;
+    --color-yellow: #FFD717;
+
+    --font-family-titles: 'Open Sans', sans-serif;
+    --font-family-text: 'Open Sans', sans-serif;
     --font-weight-title1: 800;
     --font-weight-title2: 700;
     --font-weight-text1: 400;
@@ -26,12 +31,12 @@
 }
 
 html {
-    background-color: var(--purple-medium-3);
+    background-color: var(--color-dark1);
 }
 
 body {
-    background-color: var(--purple-light-1);
-    color: var(--purple-dark-2);
+    background-color: var(--color-dark1);
+    color: var(--color-yellow);
     font-family: var(--font-family-text);
     font-weight: var(--font-weight-text1);
     font-size: 16px;
@@ -46,7 +51,7 @@ h1, h2, h3 {
 
 h1, h2 {
     font-size: 24px;
-    color: var(--purple-dark-2);
+    color: var(--color-yellow);
     font-family: var(--font-family-titles);
     font-weight: var(--font-weight-title1);
     margin: 0;
@@ -55,33 +60,38 @@ h1, h2 {
 
 h2 {
     font-size: 18px;
-    color: var(--purple-dark-1);
+    color: var(--color-yellow);
     font-weight: var(--font-weight-title2);
 }
 
 h3 {
-    color: var(--purple-dark-2);
+    color: var(--color-yellow);
     font-weight: var(--font-weight-text2);
     font-size: 16px;
 }
 
+section {
+    border-top: 1px solid #fff;
+    padding: 10px;
+    margin: auto 10px;
+}
 input {
     background-color: var(--purple-light-2);
-    color: var(--purple-medium-2);
+    color: var(--color-dark1);
     border: none;
     font-size: 18px;
     padding-left: 16px;
 }
 
 input::placeholder {
-    color: var(--purple-medium-1);
+    color: var(--color-ligth);
     font-family: var(--font-family-text);
 }
 
 button {
-    background-color: var(--purple-dark-1);
+    background-color: var(--color-ligth);
     border: none;
-    color: var(--purple-light-2);
+    color: var(--color-yellow);
     font-weight: var(--font-weight-text2);
     font-size: 14px;
     cursor: pointer;
@@ -91,7 +101,7 @@ button {
 /* Shared */
 .header-container, .trendingPreview-header, .categoriesPreview-container, 
 .liked-header{
-    padding: 0 24px;
+    /* padding: 0 24px; */
 }
 
 .trendingPreview-container, .categoriesPreview-container,.liked-container, footer {
@@ -141,13 +151,15 @@ button {
     border-radius: 30px;
     padding: 0;
     margin: 0;
+    font-size: 1.6rem;
+    color: red;
 }
-.movie-btn::before {
+/* .movie-btn::before {
     content: '💗';
-}
+} */
 .movie-btn--liked {
-    background-color: var(--purple-light-2);
-    box-shadow: 0px 0px 10px 2px var(--purple-dark-1);
+    /* background-color: var(--purple-light-2);
+    box-shadow: 0px 0px 10px 2px var(--purple-dark-1); */
 }
 
 
@@ -180,7 +192,11 @@ button {
 
 /* Header */
 .header-container {
-    padding-top: 40px;
+    padding: 40px;
+    background: var(--color-dark2);
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: row;
 }
 
 .header-container--long {
@@ -199,6 +215,7 @@ button {
 
 .header-title {
     margin-bottom: 16px;
+    color: #FFD717;
 }
 
 .header-arrow {
@@ -209,7 +226,7 @@ button {
     display: inline-block;
 }
 .header-arrow--white {
-    color: var(--purple-light-1);
+    color: var(--color-yellow);
 }
 
 .header-searchForm {
@@ -218,11 +235,13 @@ button {
     justify-content: center;
     width: 100%;
     flex-wrap: nowrap;
+    /* border: 2px solid var(--purple-light-1); */
+    border-radius: 10px;
 }
 
 .header-searchForm input {
     height: 48px;
-    width: 100%;
+    width: 10rem;
     border-top-left-radius: 8px;
     border-bottom-left-radius: 8px;
 }
@@ -346,7 +365,7 @@ button {
     margin-top: 403px;
     z-index: 1;
     position: absolute;
-    background-color: var(--purple-light-1);
+    background-color: var(--color-dark1);
 }
 
 .movieDetail-title {
@@ -406,8 +425,8 @@ button {
 
 /* Footer */
 footer {
-    background-color: var(--purple-medium-3);
-    color: var(--purple-light-2);
+    background-color: var(--color-dark2);
+    color: var(--color-yellow);
     text-align: center;
     height: 48px;
     display: flex;
@@ -417,7 +436,10 @@ footer {
 
 
 /* Navigation */
-.inactive {
+header  .inactive {
+    display: none;
+}
+body  .inactive {
     display: none;
 }
 
