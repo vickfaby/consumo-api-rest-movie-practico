@@ -141,7 +141,8 @@ button {
 
 .movie-img {
     border-radius: 8px;
-    min-height: 175px;
+    /* min-height: 175px; */
+    
 }
 
 .movie-btn {
@@ -171,6 +172,8 @@ button {
     justify-content: space-between;
     position: relative;
     flex-wrap: wrap;
+    width: 80%;
+    margin: 0 auto;
 }
 
 .category-container--loading {
@@ -189,12 +192,9 @@ button {
 .category-container--loading:nth-child(2) {
     animation-delay: 0.2s;
 }
-
-
-
 /* Header */
 .header-container {
-    padding: 40px;
+    padding: 10px 40px;
     background: var(--color-dark2);
     display: flex;
     justify-content: flex-start;
@@ -209,7 +209,9 @@ button {
     position: fixed;
     top: 0;
     width: 100%;
+    max-width: 800px;
 }
+
 
 .header-container--categoryView {
     background: linear-gradient(180deg, rgba(238, 204, 117, 0.5) 0%, rgba(238, 204, 117, 0) 72.92%);
@@ -218,6 +220,7 @@ button {
 .header-title {
     margin-bottom: 16px;
     color: #FFD717;
+    text-align: center;
 }
 
 .header-arrow {
@@ -226,6 +229,7 @@ button {
     margin-bottom: 16px;
     cursor: pointer;
     display: inline-block;
+    margin-right: 1rem;
 }
 .header-arrow--white {
     color: var(--color-yellow);
@@ -277,7 +281,18 @@ button {
     height: 241px;
     padding-left: 24px;
     padding-bottom: 16px;
+    /* -ms-overflow-style: none; Internet Explorer 10+ */
+    /* scrollbar-width: none; Firefox */
 }
+
+
+/* .trendingPreview-movieList::-webkit-scrollbar {
+    display: none; /* Safari and Chrome 
+  }*/
+  /*
+.liked-movieList ::-webkit-scrollbar {
+    display: none; /* Safari and Chrome 
+  } */
 
 .trendingPreview-movieList .movie-container,
 .liked-movieList .movie-container {
@@ -351,7 +366,7 @@ button {
 
 .genericList-container .movie-container {
     display: inline-block;
-    width: 47.5%;
+    width: 30%;
 }
 
 .genericList-container .movie-img {
@@ -364,10 +379,11 @@ button {
     border-top-left-radius: 16px;
     border-top-right-radius: 16px;
     padding: 32px 24px;
-    margin-top: 403px;
+    margin: 403px 0 0 0;
     z-index: 1;
     position: absolute;
     background-color: var(--color-dark1);
+    max-width: 800px;
 }
 
 .movieDetail-title {
@@ -407,7 +423,7 @@ button {
     overflow-x: scroll;
     overflow-y: hidden;
     white-space: nowrap;
-    width: calc(100vw - 24px);
+    width: 100%;
     padding-bottom: 16px;
 }
 
